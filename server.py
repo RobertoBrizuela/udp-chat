@@ -49,7 +49,7 @@ def broadcast():
                 if addr not in users:
                     continue
                 sender = users[addr]
-                ts = datetime.now().strftime("%H:%M")
+                ts = datetime.now().strftime("%H:%M:%S")
                 msg = f"[{ts}] {sender}: {text}"
                 print(f"[Server] {msg}")
                 for client_addr in list(users):

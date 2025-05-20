@@ -16,7 +16,7 @@ def receive():
     while True:
         try:
             message, _ = client.recvfrom(1024)
-            print(message.decode())
+            print(f"\r{message.decode()}\nEnter your message: ", end='')
         except:
             pass
         
@@ -26,7 +26,8 @@ t.start()
 client.sendto(f"SIGNUP_TAG:{name}".encode(), ('localhost', 9999))
 
 while True:
-    message = input()
+    message = input("Enter your message: ")
+    # check if the message is empty
     if not message.strip():
         print("⚠️  You cannot send an empty message.")
         continue
