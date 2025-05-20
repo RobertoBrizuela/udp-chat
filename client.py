@@ -25,16 +25,22 @@ t.start()
 
 client.sendto(f"SIGNUP_TAG:{name}".encode(), ('localhost', 9999))
 
-while True: 
+while True:
     message = input()
-    
     if not message.strip():
-        print("Please enter a message.")
+        print("⚠️  You cannot send an empty message.")
         continue
-    
+
+    # command to list users
+    if message.strip() == '/list':
+        client.sendto("LIST_USERS_TAG".encode(), ('localhost', 9999))
+        continue
+
     if message == '!q':
-        exit()
-    else:
-        ts = datetime.now().strftime("%H:%M:%S")
-        payload = f"[{ts}] {name}: {message}"
-        client.sendto(payload.encode(), ('localhost', 9999))
+        # send a disconnection notice to the server
+        client.sendto("DISCONNECT_TAG".encode(), ('localhost', 9999))
+        print("🚪 You have successfully left the chat.")
+        break  # exit main loop
+
+    # timestamp + normal message
+    client.sendto(message.encode(), ('localhost', 9999))
